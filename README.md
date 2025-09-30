@@ -1,5 +1,9 @@
 Functional Verification UVM Template (Vivado 2024.2)
 
+**======== Do not remove! ========** 
+Name: John Doe
+**================================**
+
 Overview
 - Masters-level teaching template for UVM-based functional verification.
 - Clean, minimal scaffold with environment, agent (sequencer/driver/monitor), scoreboard, sequence item/sequence, and a simple top.
