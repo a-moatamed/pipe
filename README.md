@@ -1,93 +1,86 @@
-# project-template
+Functional Verification UVM Template (Vivado 2024.2)
 
+Overview
+- Masters-level teaching template for UVM-based functional verification.
+- Clean, minimal scaffold with environment, agent (sequencer/driver/monitor), scoreboard, sequence item/sequence, and a simple top.
+- Ready to extend for labs, assignments, and projects.
 
+Directory Structure
+- src/testbench
+  - if/my_if.sv — simple interface (clk, rst_n, basic handshakes)
+  - sequences/seq_item.sv — UVM sequence item (TODO fields/constraints)
+  - sequences/sequence.sv — Basic example sequence body (with #1 time advance)
+  - agents/seqr.sv — UVM sequencer
+  - agents/driver.sv — UVM driver (gets vif via config DB; #1 inside forever)
+  - agents/monitor.sv — UVM monitor (analysis_port; #1 inside forever)
+  - agents/agent.sv — Agent (active/passive), connects sequencer<->driver
+  - env/scoreboard.sv — Scoreboard with analysis_export
+  - env/env.sv — Environment wiring monitor->scoreboard
+  - uvm_pkg/uvm_tb_pkg.sv — Central package importing the TB components
+  - top/test.sv — Example UVM test starting a basic sequence
+  - top/top.sv — Top module, clocks/reset, config DB, run_test()
+- run
+  - files.f — File list (compile interface first, then pkg, then top)
+  - run_sim.tcl — Vivado/xsim projectless compile/elab/run (batch/GUI)
+  - run.sh — Wrapper script with logging and safety
 
-## Getting started
+Requirements
+- Vivado 2024.2 with xsim and UVM library available.
+- SystemVerilog enabled (-sv) and UVM (-L uvm) in the flow.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Quick Start
+1) Batch simulation (default 1 ms):
+   - ./run/run.sh --clean
+   - ./run/run.sh
+2) Choose test:
+   - ./run/run.sh +UVM_TESTNAME=base_test
+3) Shorter/longer run time:
+   - ./run/run.sh --time 100us
+4) GUI (replay/open waves):
+   - ./run/run.sh --gui
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Artifacts
+- Logs: run/logs/sim.log (also copied to vivado.log)
+- Wave DB: run/sim/xsim.wdb (loaded in GUI if present)
 
-## Add your files
+Customization Tips
+- Add your DUT under src/rtl and include it in run/files.f.
+- Edit my_if.sv signals to match your protocol. No clocking blocks/modports used.
+- Bind vif in top.sv (already done via uvm_config_db to "*").
+- Implement transaction fields/constraints in sequences/seq_item.sv.
+- Implement driver/monitor protocol logic in agents/driver.sv and agents/monitor.sv.
+- Implement checking/expected model in env/scoreboard.sv.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+Notes on Simulation Behavior
+- Small #1 delays are placed inside forever loops (driver/monitor) and at the start of sequence body to avoid time-0 hangs and improve waveform readability.
+- Batch runs are time-bounded (default 1 ms). Override with --time argument.
+- run.sh restores terminal TTY settings on exit, even if interrupted.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.cs.pub.ro/etti/dcae-public/arh/teaching/aces/2025-2026/functional-verification/project-template.git
-git branch -M main
-git push -uf origin main
-```
+Next Steps
+- Add DUT stub and connect to my_if for a full end-to-end example.
+- Extend with additional agents/environments as labs progress.
 
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.cs.pub.ro/etti/dcae-public/arh/teaching/aces/2025-2026/functional-verification/project-template/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Modules
+- AXI-Stream FIFO
+- AXI4-Stream Broadcaster
+- AXI4-Stream Clock Converter
+- AXI4-Stream Combiner
+- AXI4-Stream Data FIFO
+- AXI4-Stream Data Width Converter
+- AXI4-Stream Register Slice
+- AXI Data FIFO
+- AXI Data Width Converter
+- AXI Register Slice
+- Multiply Adder
+- Accumulator
+- Binary Counter
+- AXI Interrupt Controller
+- AXI Quad SPI
+- AXI Timebase Watchdog Timer
+- AXI Timer
+- AXI UART16550
+- AXI Uartlite
+- AXI BRAM Controller
+- Adder/Subtracter
+- Floating-point
+- CORDIC
