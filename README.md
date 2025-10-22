@@ -1,12 +1,12 @@
 **======== Do not remove! ========** 
 
-Team name: To do
+Team name: Dydy
 
-Module: To do
+Module: AXI Register Slice
 
-Member#1: John Doe<br>
-Member#2: John Doe<br>
-Member#3: John Doe<br>
+Member#1: Mahazoasy Narindra<br>
+Member#2: Waleed Hussain<br>
+Member#3:<br>
 
 **================================**
 
