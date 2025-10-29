@@ -40,10 +40,17 @@ sources:
 	@echo "Running Vivado to generate RTL for $(ip_name)"
 	cd ../src/rtl && vivado -mode batch -source rtlgen.tcl -tclargs $(ip_name)
 	@module_name="$(ip_name)_0"; \
-	 src_dir="../src/rtl/proj_dir/rtlgenProject.gen/sources_1/ip/$$module_name/hdl"; \
-	 if [ ! -d "$$src_dir" ]; then echo "ERROR: Expected HDL dir not found: $$src_dir"; exit 2; fi; \
-	 echo "Copying HDL from $$src_dir to ../src/rtl"; \
-	 cp -f $$src_dir/* ../src/rtl/; \
+	 hdl_dir="../src/rtl/proj_dir/rtlgenProject.gen/sources_1/ip/$$module_name/hdl"; \
+	 synth_dir="../src/rtl/proj_dir/rtlgenProject.gen/sources_1/ip/$$module_name/synth"; \
+	 if [ ! -d "$$hdl_dir" ]; then echo "ERROR: Expected HDL dir not found: $$hdl_dir"; exit 2; fi; \
+	 echo "Copying HDL from $$hdl_dir to ../src/rtl"; \
+	 cp -f $$hdl_dir/* ../src/rtl/; \
+	 if [ -d "$$synth_dir" ]; then \
+	   echo "Copying synth wrapper(s) from $$synth_dir to ../src/rtl"; \
+	   cp -f $$synth_dir/* ../src/rtl/; \
+	 else \
+	   echo "No synth dir found at $$synth_dir (skipping)"; \
+	 fi; \
 	 echo "Updating run/files.f with generated VHDL from ../src/rtl (prepended, de-duplicated)"; \
 	 vhdl_list=$$(ls -1 ../src/rtl/*.vhd 2>/dev/null); \
 	 if [ -n "$$vhdl_list" ]; then \
