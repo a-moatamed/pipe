@@ -1,14 +1,9 @@
-**======== Do not remove! ========** 
+Team name: PleaseHaveMercy
 
-Team name: To do
+Module: Adder/Subtracter
 
-Module: To do
-
-Member#1: John Doe<br>
-Member#2: John Doe<br>
-Member#3: John Doe<br>
-
-**================================**
+Member#1: Andronic Smaranda
+Member#2: Florea Alexia
 
 Functional Verification UVM Template (Vivado 2024.2)
 
