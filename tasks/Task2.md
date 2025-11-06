@@ -1,6 +1,6 @@
 Task 2. Deadlines: Nov 11 / Nov 18
 
-- Get familiar with UVM reporting functions 
+- Get familiar with UVM reporting functions and UVM phases
 - Implement one or more sequence items
 - Implement one or more sequences
 - Implement a base test generating simple sequences
