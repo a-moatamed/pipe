@@ -112,14 +112,14 @@ module top;
 
 
     initial begin
-        
-        uvm_config_db#(virtual my_if)::set(null, "uvm_test_top", "vif", axi_vif);
-        
+        uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.*", "vif", axi_vif);
+        run_test("base_test");
+    end
+
+    initial begin
         rst_n = 1'b0;
         #20ns;
         rst_n = 1'b1;
-        
-        run_test("base_test");
     end
 
 endmodule
