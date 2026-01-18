@@ -4,6 +4,7 @@
 
 `include "uvm_macros.svh"
 import uvm_pkg::*;
+import uvm_tb_pkg::*;
 
 module top;
     // Parameters for DUT
