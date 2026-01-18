@@ -1,0 +1,56 @@
+#-----------------------------------------------------------
+# xsim v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Jan 18 21:41:52 2026
+# Process ID: 2562127
+# Current directory: /ghome/aabdelrahman/Abdo/dydy/run/sim
+# Command line: xsim -mode tcl -source {xsim.dir/work.top/xsim_script.tcl}
+# Log file: /ghome/aabdelrahman/Abdo/dydy/run/sim/xsim.log
+# Journal file: /ghome/aabdelrahman/Abdo/dydy/run/sim/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/work.top/xsim_script.tcl
+# xsim {work.top} -testplusarg +UVM_TESTNAME=base_test -testplusarg +UVM_VERBOSITY=UVM_HIGH -wdb {xsim.wdb} -autoloadwcfg -tclbatch {/ghome/aabdelrahman/Abdo/dydy/run/sim/run_batch.tcl}
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source /ghome/aabdelrahman/Abdo/dydy/run/sim/run_batch.tcl
+## log_wave -recursive /*
+## run 20us
+UVM_INFO /proj/xbuilds/SWIP/2020.2_0711_1805/installs/lin64/Vivado/2020.2/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(18601) @ 0: reporter [UVM/RELNOTES] 
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+
+  You are using a version of the UVM library that has been compiled
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+----------------------------------------------------------------
+(C) 2013-2014 NVIDIA Corporation
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2007-2014 Mentor Graphics Corporation
+
+
+----------------------------------------------------------------
+
+UVM_WARNING @ 20000: reporter [BDTYP] Cannot create a component of type 'base_test' because it is not registered with the factory.
+UVM_FATAL @ 20000: reporter [INVTST] Requested test from call to run_test(base_test) not found.
+UVM_INFO /proj/xbuilds/SWIP/2020.2_0711_1805/installs/lin64/Vivado/2020.2/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(13673) @ 20000: reporter [UVM/REPORT/SERVER] [UVM/RELNOTES]     1
+[INVTST]     1
+[BDTYP]     1
+** Report counts by id
+UVM_FATAL :    1
+UVM_ERROR :    0
+UVM_WARNING :    1
+UVM_INFO :    1
+** Report counts by severity
+
+--- UVM Report Summary ---
+
+
+$finish called at time : 20 ns : File "/opt/Xilinx/Vivado/2020.2/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv" Line 18538
+## quit
+INFO: [Common 17-206] Exiting xsim at Sun Jan 18 21:42:01 2026...
